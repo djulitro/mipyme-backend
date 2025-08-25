@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Profile\UpdateProfileRequest;
 use App\Models\Profile;
 use App\Services\ProfileService;
 use Illuminate\Http\Request;
@@ -21,5 +22,17 @@ class ProfileController extends Controller
         ]);
     }
 
+    public function updateProfile(UpdateProfileRequest $request)
+    {
+        $data = $request->safe()->all();
+        $user = Auth::user();
+        
+        // TODO: Se tiene que agregar la lógica para subir la imagen y obtener la URL
+        $profile = (new ProfileService())->updateProfile($user->id, $data);
 
+        return response()->json([
+            'message' => 'Perfil actualizado correctamente',
+            'profile' => $profile
+        ]);
+    }
 }
