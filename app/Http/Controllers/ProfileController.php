@@ -20,4 +20,6 @@ class ProfileController extends Controller
             'profile' => $profile
         ]);
     }
+
+
 }
