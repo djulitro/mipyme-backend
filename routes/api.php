@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PymeController;
+use App\Http\Controllers\ServiceController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -24,4 +25,14 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     Route::get('/pyme', [PymeController::class, 'getPyme']);
     Route::put('/pyme', [PymeController::class, 'updatePyme']);
+
+    // Service routes
+    Route::group(['prefix' => 'pyme'], function () {
+        Route::get('/{pymeId}/service', [ServiceController::class, 'getByPyme']);
+        Route::get('/service/{serviceId}', [ServiceController::class, 'getById']);
+        Route::post('/service', [ServiceController::class, 'create']);
+        Route::put('/service/{serviceId}', [ServiceController::class, 'update']);
+        Route::patch('/service/{serviceId}/status', [ServiceController::class, 'changeStatus']);
+        Route::delete('/service/{serviceId}', [ServiceController::class, 'delete']);
+    });
 });
