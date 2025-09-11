@@ -11,7 +11,7 @@ class UpdateServiceRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,12 @@ class UpdateServiceRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'pyme_id' => 'required|integer|exists:App\Models\Pyme,id',
+            'name' => 'required|string|max:255',
+            'description' => 'required|string|max:255',
+            'price' => 'required|integer',
+            'time' => 'required|integer',
+            'status' => 'sometimes|required|boolean',
         ];
     }
 }

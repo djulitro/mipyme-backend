@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Service\CreateServiceRequest;
+use App\Http\Requests\Service\UpdateServiceRequest;
 use App\Services\ServiceService;
 use Illuminate\Http\Request;
 
@@ -44,7 +45,7 @@ class ServiceController extends Controller
         return response()->json($service, 201);
     }
 
-    public function update(int $serviceId, CreateServiceRequest $request)
+    public function update(int $serviceId, UpdateServiceRequest $request)
     {
         $data = $request->safe()->all();
         $service = $this->serviceService->update($serviceId, $data);
