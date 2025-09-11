@@ -22,6 +22,11 @@ class Pyme extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    public function services()
+    {
+        return $this->hasMany(Service::class, 'pyme_id', 'id');
     }
 }
