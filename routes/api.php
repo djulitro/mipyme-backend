@@ -29,6 +29,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     // Service routes
     Route::group(['prefix' => 'pyme'], function () {
         Route::get('/{pymeId}/service', [ServiceController::class, 'getByPyme']);
+        Route::get('/{pymeId}/service/all', [ServiceController::class, 'getAllByPyme']);
         Route::get('/service/{serviceId}', [ServiceController::class, 'getById']);
         Route::post('/service', [ServiceController::class, 'create']);
         Route::put('/service/{serviceId}', [ServiceController::class, 'update']);

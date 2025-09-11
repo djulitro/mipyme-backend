@@ -22,6 +22,13 @@ class ServiceController extends Controller
         return response()->json($service);
     }
 
+    public function getAllByPyme(int $pymeId)
+    {
+        $service = $this->serviceService->getAllByPyme($pymeId);
+
+        return response()->json($service);
+    }
+
     public function getById(int $serviceId)
     {
         $service = $this->serviceService->getById($serviceId);
@@ -48,10 +55,11 @@ class ServiceController extends Controller
     public function changeStatus(int $serviceId, Request $request)
     {
         $request->validate([
-            'status' => 'required|string|max:255',
+            'status' => 'required|boolean',
         ]);
 
         $status = $request->input('status');
+
         $service = $this->serviceService->changeStatus($serviceId, $status);
 
         return response()->json($service);
@@ -61,6 +69,8 @@ class ServiceController extends Controller
     {
         $this->serviceService->delete($serviceId);
 
-        return response()->json(null, 204);
+        return response()->json([
+            'message' => 'Servicio Eliminado correctamente.'
+        ], 204);
     }
 }

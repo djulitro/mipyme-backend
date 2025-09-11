@@ -25,9 +25,9 @@ class CreateServiceRequest extends FormRequest
             'pyme_id' => 'required|integer|exists:App\Models\Pyme,id',
             'name' => 'required|string|max:255',
             'description' => 'required|string|max:255',
-            'price' => 'required|string|max:255',
-            'duration' => 'required|string|max:255',
-            'status' => 'required|string|max:255',
+            'price' => 'required|integer',
+            'time' => 'required|integer',
+            'status' => 'sometimes|required|boolean',
         ];
     }
 }

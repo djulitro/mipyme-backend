@@ -8,7 +8,12 @@ class ServiceService
 {
     public function getByPyme(int $pymeId)
     {
-        return Service::where('pyme_id', $pymeId)->first();
+        return Service::where('pyme_id', $pymeId)->where('status', 1)->get();
+    }
+
+    public function getAllByPyme(int $pymeId)
+    {
+        return Service::where('pyme_id', $pymeId)->get();
     }
 
     public function getById(int $serviceId)
@@ -44,7 +49,7 @@ class ServiceService
             throw new \Exception('Service not found');
         }
 
-        $service->status = $status;
+        $service->status = $status ? 1 : 0;
         $service->save();
 
         return $service;
