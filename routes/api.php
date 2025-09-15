@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PymeController;
+use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\ServiceController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -26,8 +27,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/pyme', [PymeController::class, 'getPyme']);
     Route::put('/pyme', [PymeController::class, 'updatePyme']);
 
-    // Service routes
     Route::group(['prefix' => 'pyme'], function () {
+        // Service routes
         Route::get('/{pymeId}/service', [ServiceController::class, 'getByPyme']);
         Route::get('/{pymeId}/service/all', [ServiceController::class, 'getAllByPyme']);
         Route::get('/service/{serviceId}', [ServiceController::class, 'getById']);
@@ -35,5 +36,11 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::put('/service/{serviceId}', [ServiceController::class, 'update']);
         Route::patch('/service/{serviceId}/status', [ServiceController::class, 'changeStatus']);
         Route::delete('/service/{serviceId}', [ServiceController::class, 'delete']);
+
+        // Schedule routes
+        Route::get('/{pymeId}/schedule/{startDate}/{endDate}', [ScheduleController::class, 'getByPymeAndDates']);
+        Route::post('/{pymeId}/schedule', [ScheduleController::class, 'createRotativeSchedule']);
+        Route::put('/{pymeId}/schedule', [ScheduleController::class, 'updateDateSchedule']);
+        Route::delete('/{pymeId}/schedule/{startDate}/{endDate}', [ScheduleController::class, 'deleteByPymeAndDates']);
     });
 });
