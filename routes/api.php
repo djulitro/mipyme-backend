@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PymeController;
+use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\ServiceController;
 use Illuminate\Http\Request;
@@ -43,4 +45,12 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::put('/{pymeId}/schedule', [ScheduleController::class, 'updateDateSchedule']);
         Route::delete('/{pymeId}/schedule/{startDate}/{endDate}', [ScheduleController::class, 'deleteByPymeAndDates']);
     });
+
+    Route::group(['prefix' => 'reservation'], function () {
+        Route::get('/pyme/{pymeId}/{startDate}/{endDate}', [ReservationController::class, 'getByPyme']);
+        Route::get('/client/{startDate}/{endDate}', [ReservationController::class, 'getByClient']);
+        Route::post('/', [ReservationController::class, 'create']);
+    });
+
+    Route::put('/payment', [PaymentController::class, 'updateStatus']);
 });

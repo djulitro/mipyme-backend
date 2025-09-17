@@ -11,6 +11,17 @@ class ServiceService
         return Service::where('pyme_id', $pymeId)->where('status', 1)->get();
     }
 
+    public function getByIds(array $serviceIds, ?int $pymeId = null)
+    {
+        $services = Service::whereIn('id', $serviceIds)->where('status', 1);
+
+        if (!is_null($pymeId)) {
+            $services->where('pyme_id', $pymeId);
+        }
+
+        return $services->get();
+    }
+
     public function getAllByPyme(int $pymeId)
     {
         return Service::where('pyme_id', $pymeId)->get();
